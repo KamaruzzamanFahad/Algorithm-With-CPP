@@ -10,7 +10,21 @@ void dijkstra(int src){
     dis[src] =0;
 
     while(!q.empty()){
-        
+        pair<int,int> par = q.front();
+        int par_node = par.first;
+        int par_dis = par.second;
+
+        for(auto child : adj_list[par_node]){
+            int child_node = child.first;
+            int child_dis = child.second;
+
+            if(par_dis + child_dis < dis[child_node] ){
+                dis[child_node] = par_dis + child_dis;
+
+                q.push({child_node, dis[child_node]});
+            }
+        }
+
     }
 }
 
@@ -27,5 +41,9 @@ int main(){
   fill(dis, dis+105, 500);
 
   dijkstra(0);
+
+  for(int i=0; i<n; i++){
+    cout << i << " -> " << dis[i] << endl;
+  }
   return 0;
 }
