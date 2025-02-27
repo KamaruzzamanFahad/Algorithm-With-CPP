@@ -7,10 +7,20 @@ int dis[100];
 
 void disktara(int src){
     priority_queue<pair<int,int>, vector<pair<int,int>> , greater<pair<int,int>>> pq;
-    cin >> n,e;
+    pq.push({src, 0});
+    dis[src] =0;
+
+    if(!pq.empty()){
+        pair<int,int> par = pq.top();
+        pq.pop();
+        
+        int par_node = par.first;
+    }
+
 }
 
 int main() {
+
     while(e--){
         int a,b,c;
         cin >> a >> b >> c;
