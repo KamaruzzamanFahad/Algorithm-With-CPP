@@ -3,12 +3,10 @@ using namespace std;
 
 int n, e;
 
-class Edge
-{
+class Edge {
 public:
     int a, b, c;
-    Edge(int a, int b, int c)
-    {
+    Edge(int a, int b, int c) {
         this->a = a;
         this->b = b;
         this->c = c;
@@ -17,82 +15,60 @@ public:
 
 vector<Edge> edg_list;
 
-bool cycle(int src)
-{
-    long long dis[n + 1];
-    for (int i = 0; i <= n; i++)
-    {
-        dis[i] = LONG_MAX;
-    }
+bool hasNegativeCycle(int src) {
+    vector<long long> dis(n + 1, LLONG_MAX);
     dis[src] = 0;
 
-    for (int i = 0; i < n - 1; i++)
-    {
-        for (auto ed : edg_list)
-        {
+    for (int i = 0; i < n - 1; i++) {
+        for (auto ed : edg_list) {
             int a = ed.a;
             int b = ed.b;
             int c = ed.c;
 
-            if (dis[a] != LONG_MAX && dis[a] + c < dis[b])
-            {
+            if (dis[a] != LLONG_MAX && dis[a] + c < dis[b]) {
                 dis[b] = dis[a] + c;
             }
         }
     }
 
-    for (auto ed : edg_list)
-    {
+   
+    for (auto ed : edg_list) {
         int a = ed.a, b = ed.b, c = ed.c;
-        if (dis[a] != LONG_MAX && dis[a] + c < dis[b])
-        {
-            return true;
+        if (dis[a] != LLONG_MAX && dis[a] + c < dis[b]) {
+            return true; 
         }
     }
 
-    return false;
+    return false; 
 }
 
-void bellmanford(int src, int dest)
-{
-    long long dis[n + 1];
-    for (int i = 0; i <= n; i++)
-    {
-        dis[i] = LONG_MAX;
-    }
+void bellmanford(int src, int dest) {
+    vector<long long> dis(n + 1, LLONG_MAX);
     dis[src] = 0;
 
-    for (int i = 0; i < n - 1; i++)
-    {
-        for (auto ed : edg_list)
-        {
+    for (int i = 0; i < n - 1; i++) {
+        for (auto ed : edg_list) {
             int a = ed.a;
             int b = ed.b;
             int c = ed.c;
 
-            if (dis[a] != LONG_MAX && dis[a] + c < dis[b])
-            {
+            if (dis[a] != LLONG_MAX && dis[a] + c < dis[b]) {
                 dis[b] = dis[a] + c;
             }
         }
     }
 
-    if (dis[dest] == LONG_MAX)
-    {
+    if (dis[dest] == LLONG_MAX) {
         cout << "Not Possible" << endl;
-    }
-    else
-    {
+    } else {
         cout << dis[dest] << endl;
     }
 }
 
-int main()
-{
+int main() {
     cin >> n >> e;
 
-    while (e--)
-    {
+    for (int i = 0; i < e; i++) {
         int a, b, c;
         cin >> a >> b >> c;
         edg_list.push_back(Edge(a, b, c));
@@ -101,14 +77,12 @@ int main()
     int src, t;
     cin >> src >> t;
 
-    if (cycle(src))
-    {
+    if (hasNegativeCycle(src)) {
         cout << "Negative Cycle Detected" << endl;
-        return 0;
+        return 0; 
     }
 
-    for (int i = 0; i < t; i++)
-    {
+    for (int i = 0; i < t; i++) {
         int dest;
         cin >> dest;
         bellmanford(src, dest);
