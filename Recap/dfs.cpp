@@ -64,3 +64,7 @@ int main()
 // 1. full graph travarsal 
 // 2. Connected Component
 // 3.maze solve
+
+// complexcity: O(V+E)
+// V = node number || vertex,
+// E = edg number
